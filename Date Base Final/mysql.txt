@@ -1,0 +1,69 @@
+-- Drop the database if it already exists
+DROP DATABASE IF EXISTS article;
+CREATE DATABASE article;
+USE article;
+
+-- Create the 'article' table
+CREATE TABLE IF NOT EXISTS article (
+    article_id INT PRIMARY KEY AUTO_INCREMENT,
+    name_article VARCHAR(255) NOT NULL,
+    category VARCHAR(100),
+    price DECIMAL(10, 2),
+    UNIQUE KEY(name_article)
+);
+
+-- Create the 'client' table
+CREATE TABLE IF NOT EXISTS client (
+    client_id INT PRIMARY KEY AUTO_INCREMENT,
+    name_client VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE,
+    phone VARCHAR(20),
+    UNIQUE KEY(name_client)
+);
+
+-- Create the 'vente' table with foreign key constraints
+CREATE TABLE IF NOT EXISTS vente (
+    vente_id INT PRIMARY KEY AUTO_INCREMENT,
+    name_article VARCHAR(255),
+    name_client VARCHAR(255),
+    category VARCHAR(100),
+    quantity INT,
+    sale_date DATE,
+    total_price DECIMAL(10, 2),
+    FOREIGN KEY (name_article) REFERENCES article(name_article) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (name_client) REFERENCES client(name_client) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- Insert sample data into 'article' table
+INSERT INTO article (name_article, category, price) VALUES 
+('Laptop Pro', 'Electronics', 1000.00),
+('Headphones X', 'Electronics', 150.00),
+('Coffee Machine Deluxe', 'Home Appliances', 80.00),
+('Smartphone Plus', 'Electronics', 700.00),
+('Ergonomic Chair', 'Furniture', 120.00),
+('T-shirt Basic', 'Apparel', 15.00),
+('Digital Watch', 'Electronics', 150.00),
+('Dress Evening', 'Apparel', 70.00),
+('Dishwasher', 'Home Appliances', 500.00),
+('Dining Chair Set', 'Furniture', 250.00),
+('Cookbook Healthy', 'Books', 18.00);
+
+-- Insert sample data into 'client' table
+INSERT INTO client (name_client, email, phone) VALUES 
+('Alice Smith', 'alice.smith@example.com', '123-456-7890'),
+('Bob Johnson', 'bob.johnson@example.com', '234-567-8901'),
+('Carol White', 'carol.white@example.com', '345-678-9012'),
+('Dave Brown', 'dave.brown@example.com', '456-789-0123'),
+('Eve Davis', 'eve.davis@example.com', '567-890-1234'),
+('Frank Miller', 'frank.miller@example.com', '678-901-2345'),
+('Grace Wilson', 'grace.wilson@example.com', '789-012-3456'),
+('Henry Moore', 'henry.moore@example.com', '890-123-4567'),
+('Ivy Taylor', 'ivy.taylor@example.com', '901-234-5678'),
+('Jack Lee', 'jack.lee@example.com', '012-345-6789'),
+('Karen Harris', 'karen.harris@example.com', '123-456-7891'),
+('Leo Clark', 'leo.clark@example.com', '234-567-8902'),
+('Mona Lewis', 'mona.lewis@example.com', '345-678-9013'),
+('Nick Walker', 'nick.walker@example.com', '456-789-0124'),
+('Olivia Young', 'olivia.young@example.com', '567-890-1235'),
+('Paul Allen', 'paul.allen@example.com', '678-901-2346'),
+('Zane Lewis', 'zane.lewis@example.com', '678-901-2347');
